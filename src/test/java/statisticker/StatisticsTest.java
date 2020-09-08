@@ -15,25 +15,57 @@ public class StatisticsTest
     public void reportsAverageMinMaxx()
     {
         Float[] numbers = {1.5f, 8.9f, 3.2f, 4.5f};
-        List<___> numberList = Arrays.asList(numbers);
+        List<Float> numberList = Arrays.asList(numbers);
 
-        Statistics.Stats s = Statistics.getStatistics(numberList);
+        Stats s = Statistics.getStatistics(numberList);
 
         float epsilon = 0.001f;
-        assertEquals(s.average, 4.525f, epsilon);
-        assertEquals(s.min, 1.5f, epsilon);
-        assertEquals(s.max, 8.9f, epsilon);
+        assertTrue(Math.abs(s.average-4.525f) < epsilon);
+        assertTrue(Math.abs(s.min - 1.5f) < epsilon);
+        assertTrue(Math.abs(s.max - 8.9f) < epsilon);
     }
+    
     @Test
     public void reportsNaNForEmptyInput()
     {
-        List<___> emptyList = new ArrayList<___>();
+        List<Float> emptyList = new ArrayList<Float>();
 
-        Statistics.Stats s = Statistics.getStatistics(emptyList);
-
-        //All fields of computedStats (average, max, min) must be
-        //Float.NaN (not-a-number), as described in
-        //https://www.geeksforgeeks.org/nan-not-number-java/
-        //Design the asserts here and implement accordingly.
+        Stats s = Statistics.getStatistics(emptyList);
+        
+        assertTrue(s.min.isNaN() == true);
+        assertTrue(s.max.isNaN() == true);
+        assertTrue(s.average.isNaN() == true);
+        
     }
+    
+    @Test
+    public void reportwhenlistcontainsNaNasinput()
+    {
+        List<Float>	listContainingNaN = Arrays.asList(1.5f, 8.9f, 3.2f, 4.5f, Float.NaN);
+
+        Stats s = Statistics.getStatistics(listContainingNaN);
+        
+        float epsilon = 0.001f;
+        assertTrue(Math.abs(s.average-4.525f) < epsilon);
+        assertTrue(Math.abs(s.min - 1.5f) < epsilon);
+        assertTrue(Math.abs(s.max - 8.9f) < epsilon);
+        
+    }
+    
+    @Test
+    public void reportwhenlisthasallelementsasNaN()
+    {
+        List<Float>	listContainingonlyNaN = Arrays.asList(Float.NaN,Float.NaN,Float.NaN);
+
+        Stats s = Statistics.getStatistics(listContainingonlyNaN);
+        
+        assertTrue(s.min.isNaN() == true);
+        assertTrue(s.max.isNaN() == true);
+        assertTrue(s.average.isNaN() == true);
+        
+    }
+    
+    
+    
+    
 }

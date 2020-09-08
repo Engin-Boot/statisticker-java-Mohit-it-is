@@ -1,4 +1,4 @@
-package com.codbind;
+package statisticker;
 
 public class Stats {
 

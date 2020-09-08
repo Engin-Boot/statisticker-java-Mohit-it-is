@@ -16,10 +16,10 @@ public class Statistics
     	stats.max = Collections.max(numbers);
     	
     	Float sum = 0.0f;
-    	for(Float i: numbers) {
-    		sum = sum + i;
+    	for(Float num: numbers) {
+    		sum = sum + num;
     	}
-    	stats.average = sum;
+    	stats.average = sum/numbers.size();
     	
 		return stats;
        
